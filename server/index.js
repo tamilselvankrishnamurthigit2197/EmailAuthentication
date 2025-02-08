@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -10,7 +12,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: process.env.CLIENT_BASE_URL,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -26,4 +28,4 @@ app.use("/api", (req, res) => {
   res.status(200).json({ message: "Hello Express" });
 });
 /* PORT FROM ENV FILE */
-app.listen(5000, () => console.log(`App is now running and listening at port 5000...`));
+app.listen(PORT || 5000, () => console.log(`App is now running and listening at port 5000...`));
