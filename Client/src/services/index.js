@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const callRegisterUserApi = async (formData) => {
     const response = await axios.post(
-      "http://localhost:5000/api/user/register",
+      `${import.meta.env.VITE_API_URL}/api/user/register`,
       formData,
       { withCredentials: true }
     );
@@ -12,7 +12,7 @@ export const callRegisterUserApi = async (formData) => {
   
   export const callLoginUserApi = async (formData) => {
     const response = await axios.post(
-      "http://localhost:5000/api/user/login",
+      `${import.meta.env.VITE_API_URL}/api/user/login`,
       formData,
       { withCredentials: true }
     );
@@ -22,7 +22,7 @@ export const callRegisterUserApi = async (formData) => {
   
   export const callUserAuthApi = async () => {
     const response = await axios.post(
-      "http://localhost:5000/api/user/auth",
+      `${import.meta.env.VITE_API_URL}/api/user/auth`,
       {},
       { withCredentials: true }
     );
@@ -34,7 +34,7 @@ export const callRegisterUserApi = async (formData) => {
   
   export const callLogoutApi = async (req, res) => {
     const response = await axios.post(
-      "http://localhost:5000/api/user/logout",
+      `${import.meta.env.VITE_API_URL}/api/user/logout`,
       {},
       { withCredentials: true }
     );
@@ -46,7 +46,7 @@ export const callRegisterUserApi = async (formData) => {
     console.log(formData, "Payload sent to API");
     
     const response = await axios.post(
-      "http://localhost:5000/api/task/add-new-task",
+      `${import.meta.env.VITE_API_URL}/api/task/add-new-task`,
       formData
     );
   console.log(response, "add new task from API");
@@ -58,7 +58,7 @@ export const callRegisterUserApi = async (formData) => {
   export const getAllTasksApi = async (getCurrentUserId) => {
     console.log(getCurrentUserId, "get current User Id");
     const response = await axios.get(
-        `http://localhost:5000/api/task/get-all-tasks-by-userid/${getCurrentUserId}`
+        `${import.meta.env.VITE_API_URL}/api/task/get-all-tasks-by-userid/${getCurrentUserId}`
     );
     console.log(response, "from getAllTaskApi for fetching tasks");
     return response?.data;
@@ -67,7 +67,7 @@ export const callRegisterUserApi = async (formData) => {
   
   export const updateTaskApi = async (formData) => {
     const response = await axios.put(
-      `http://localhost:5000/api/task/update-task`,
+      `${import.meta.env.VITE_API_URL}/api/task/update-task`,
       formData
     );
   
@@ -76,7 +76,7 @@ export const callRegisterUserApi = async (formData) => {
   
   export const deleteTaskApi = async (getCurrentTaskId) => {
     const response = await axios.delete(
-      `http://localhost:5000/api/task/delete-task/${getCurrentTaskId}`
+      `${import.meta.env.VITE_API_URL}/api/task/delete-task/${getCurrentTaskId}`
     );
   
     return response?.data;
