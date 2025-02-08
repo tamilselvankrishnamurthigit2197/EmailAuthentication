@@ -28,4 +28,4 @@ app.use("/api", (req, res) => {
   res.status(200).json({ message: "Hello Express" });
 });
 /* PORT FROM ENV FILE */
-app.listen(PORT || 5000, () => console.log(`App is now running and listening at port 5000...`));
+app.listen(5000, () => console.log(`App is now running and listening at port 5000...`));
