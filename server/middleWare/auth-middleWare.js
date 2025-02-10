@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const user = require("../models/user")
 
 const userAuthVerification = async (req, res) => {
-    const token = req.cookies.token;
+    const token = req.cookies.token; // retrive token from cookies
     console.log(token, "token");
 
     if (!token) {
@@ -21,6 +21,9 @@ const userAuthVerification = async (req, res) => {
             console.log(userInfo, "userInfo");
             
             if(userInfo){
+                // Attach user info to the request object for downstream middleware
+                req.user = userInfo;
+
                 return res.status(200).json({
                     success: true,
                     userInfo,

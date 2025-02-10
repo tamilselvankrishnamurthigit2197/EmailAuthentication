@@ -54,7 +54,9 @@ const registerUser = async (req, res, next) => {
                 res.cookie("token", token, {
                     withCredentials: true,
                     httpOnly: true,
-                    secure: true,
+                    secure: process.env.NODE_ENV === "production", //use https in production
+                    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", //enable cross origin
+                    maxAge: 3 * 24 * 60 * 60 * 1000, // expires 3days
                 });
 
                 res.status(201).json({
@@ -105,9 +107,11 @@ const loginUser = async(req, res, next)=>{
 
       const token = generateToken(getUser?._id);
       res.cookie("token", token, {
-        withCredentials: true,
-        httpOnly: true, //use httpOnly: false if it's not working
-        secure: true,
+                    withCredentials: true,
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production", //use https in production
+                    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax", //enable cross origin
+                    maxAge: 3 * 24 * 60 * 60 * 1000, // expires 3days
       });
       res.status(201).json({
         success: true,
