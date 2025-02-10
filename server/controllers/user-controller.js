@@ -18,7 +18,7 @@ const loginSchema = joi.object({
 /* generate token (umique identification(getId) for authentication) */
 
 const generateToken = (getId) =>{
-    return jwt.sign({getId}, "DEFAULT_SECRET_KEY",{
+    return jwt.sign({getId}, process.env.JWT_SECRET || "DEFAULT_SECRET_KEY",{
         expiresIn: 3*24*60*60,
     });
 }
@@ -53,7 +53,8 @@ const registerUser = async (req, res, next) => {
                 /* httpOnly:true gives you wall from accessing javascript, so give false for cross working of js inbetween */
                 res.cookie("token", token, {
                     withCredentials: true,
-                    httpOnly: false,
+                    httpOnly: true,
+                    secure: true,
                 });
 
                 res.status(201).json({
@@ -105,7 +106,8 @@ const loginUser = async(req, res, next)=>{
       const token = generateToken(getUser?._id);
       res.cookie("token", token, {
         withCredentials: true,
-        httpOnly: false,
+        httpOnly: true, //use httpOnly: false if it's not working
+        secure: true,
       });
       res.status(201).json({
         success: true,
@@ -127,7 +129,8 @@ const loginUser = async(req, res, next)=>{
 const logOut = async (req, res) => {
     res.cookie("token", "", {
         withCredentials: true,
-        httpOnly: false,
+        httpOnly: true, //httpOnly: false(OG)
+        secure: true,
     });
 
     return res.status(200).json({
