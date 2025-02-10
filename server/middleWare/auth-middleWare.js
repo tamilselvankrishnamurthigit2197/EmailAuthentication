@@ -15,27 +15,40 @@ const userAuthVerification = async (req, res) => {
     if (token) {
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET || "DEFAULT_SECRET_KEY");
+
             console.log(decoded, "decoded");
 
             const userInfo = await user.findById(decoded.getId);
             console.log(userInfo, "userInfo");
-            
-            if(userInfo){
-                // Attach user info to the request object for downstream middleware
-                req.user = userInfo;
-
+            req.user = userInfo;
                 return res.status(200).json({
                     success: true,
                     userInfo,
                 });
-            }
+                
         } catch (error) {
+            console.error("Token verification failed:", error);
+
+        // Handle token expiration or invalid token
+        if (error.name === "TokenExpiredError") {
             return res.status(401).json({
                 success: false,
-                message: "User is not authenticated",
-            })
+                message: "Token has expired. Please log in again.",
+            });
+        } else if (error.name === "JsonWebTokenError") {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid token. Please log in again.",
+            });
         }
+
+        // Handle other unexpected errors
+        return res.status(500).json({
+            success: false,
+            message: "An error occurred while verifying the token.",
+        });
     }
 }
 
+};
 module.exports = {userAuthVerification};
