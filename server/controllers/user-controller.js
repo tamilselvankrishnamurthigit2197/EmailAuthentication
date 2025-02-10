@@ -135,6 +135,8 @@ const logOut = async (req, res) => {
         withCredentials: true,
         httpOnly: true, //httpOnly: false(OG)
         secure: true,
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        expires: new Date(0),
     });
 
     return res.status(200).json({
