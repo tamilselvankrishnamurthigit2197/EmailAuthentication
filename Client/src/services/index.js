@@ -50,7 +50,9 @@ export const callUserAuthApi = async () => {
   const token = getToken(); //retrive token from session storage
 
   if (!token) {
-    throw new Error("No Token is found, User not authenticated !");
+    console.warn("No Token is found, User not authenticated !");
+    window.location.href = "/auth";
+    return;
   }
 
   const response = await axios.post(
