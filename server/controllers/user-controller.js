@@ -116,7 +116,7 @@ const loginUser = async(req, res, next)=>{
       res.status(201).json({
         success: true,
         message: "User Logged In",
-        token,
+        token, //passing token while login the user
       });
       next();
 
@@ -137,7 +137,7 @@ const logOut = async (req, res) => {
         httpOnly: true, //httpOnly: false(OG)
         secure: true,
         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-        expires: new Date(0),
+        expires: new Date(0), //it expires within no time
     });
 
     return res.status(200).json({
