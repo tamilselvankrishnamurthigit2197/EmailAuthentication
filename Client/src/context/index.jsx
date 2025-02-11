@@ -26,9 +26,7 @@ function TaskManagerProvider({ children }) {
   useEffect(() => {
 
     const verifyUserCookie = async () => {
-      /* save the token in session storage and receive it through callUserAuthApi as data */
-      const token = JSON.parse(sessionStorage.getItem("token"));
-      const data = await callUserAuthApi(token);
+      const data = await callUserAuthApi();
 
       console.log(data, "verifyUserCookie");
 
