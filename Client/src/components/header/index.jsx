@@ -11,7 +11,7 @@ function Header() {
     async function handleLogOut() {
         const response = await callLogoutApi();
         if (response?.success) {
-            /* sessionStorage.removeItem("token");  */
+            sessionStorage.removeItem("token"); 
             setUser(null); //update the user 
             navigate("/auth");
         };
