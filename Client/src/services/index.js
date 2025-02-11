@@ -80,7 +80,7 @@ export const callLogoutApi = async (req, res) => {
 }
 
 /* add new task */
-export const addNewTask = async (formData) => {
+export const addNewTaskApi = async (formData) => {
   const token = getToken(); //retrive token from session storage
   if(!token){
     throw new Error("No Token found, User not authenticated");
