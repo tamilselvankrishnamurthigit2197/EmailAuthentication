@@ -16,7 +16,7 @@ const clearToken = () =>{
 };
 
 /* register api */
-export const callRegisterApi = async (formData) =>{
+export const callRegisterUserApi = async (formData) =>{
   const response = await axios.post(
     `${import.meta.env.VITE_API_URL}/api/user/register`,
     formData,
