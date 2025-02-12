@@ -52,7 +52,8 @@ export const callUserAuthApi = async () => {
 
   if (!token) {
     /* throw new Error("No Token is found, User not authenticated !"); */
-    window.location.href = "/auth";
+    /* window.location.href = "/auth"; */
+    console.error("No Token Found, User Not Authenticated!");
     return null;
   }
 
@@ -68,10 +69,10 @@ export const callUserAuthApi = async () => {
       }
     );
     console.log(response, "response from auth");
-    return response?.data;
+    return response?.data || null;
   } catch (error) {
     console.error("Auth API error", error);
-    window.location.href = "/auth";
+    /* window.location.href = "/auth"; */
     return null;
   }
 }

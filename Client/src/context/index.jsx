@@ -33,6 +33,12 @@ function TaskManagerProvider({ children }) {
 
       console.log(data, "verifyUserCookie response");
 
+      if (!data) {
+        console.warn("No user found, redirecting to /auth");
+        navigate("/auth"); // ✅ Use React Router instead of window.location.href
+        return;
+      }
+
       if (data?.userInfo) {
         setUser(data?.userInfo);
       }
