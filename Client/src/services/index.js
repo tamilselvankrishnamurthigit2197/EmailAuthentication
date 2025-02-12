@@ -47,27 +47,35 @@ export const callLoginUserApi = async (formData) => {
 
 /* User Auth api */
 export const callUserAuthApi = async () => {
-  const token = getToken(); //retrive token from session storage
+  const token = getToken(); // Retrieve token from session storage
 
   if (!token) {
-    console.warn("No Token is found, User not authenticated !");
-    window.location.href = "/auth";
-    return;
+    console.warn("No token found. Redirecting to /auth...");
+    window.location.href = "/auth"; // Redirect to the auth page
+    return; // Stop further execution
   }
 
-  const response = await axios.post(
-    `${import.meta.env.VITE_API_URL}/api/user/auth`,
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${token}`, //attach token to request header
-        "Cache-control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-      },
-    }
-  );
-  console.log(response, "response from auth");
-  return response?.data;
-}
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/user/auth`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Attach token to request header
+          "Cache-control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        },
+      }
+    );
+    console.log(response, "Response from auth");
+    return response?.data;
+  } catch (error) {
+    console.error("Authentication failed:", error.message);
+
+    // Redirect to auth page if the API call fails
+    window.location.href = "/auth";
+    return; // Stop execution after redirection
+  }
+};
 
 /* logout api */
 export const callLogoutApi = async (req, res) => {
