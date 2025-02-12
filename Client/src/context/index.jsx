@@ -26,9 +26,12 @@ function TaskManagerProvider({ children }) {
   useEffect(() => {
 
     const verifyUserCookie = async () => {
+
+      /* quite a small delay */
+      await new Promise((resolve)=> setTimeout(resolve, 500));
       const data = await callUserAuthApi();
 
-      console.log(data, "verifyUserCookie");
+      console.log(data, "verifyUserCookie response");
 
       if (data?.userInfo) {
         setUser(data?.userInfo);
@@ -43,7 +46,7 @@ function TaskManagerProvider({ children }) {
         : navigate("/auth");
     };
 
-    verifyUserCookie();
+    verifyUserCookie(); //fallback
   }, [navigate, location.pathname]);
 
   return (

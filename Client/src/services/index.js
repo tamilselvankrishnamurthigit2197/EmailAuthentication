@@ -53,7 +53,7 @@ export const callUserAuthApi = async () => {
   if (!token) {
     /* throw new Error("No Token is found, User not authenticated !"); */
     window.location.href = "/auth";
-    return;
+    return null;
   }
 
   try {
@@ -72,7 +72,7 @@ export const callUserAuthApi = async () => {
   } catch (error) {
     console.error("Auth API error", error);
     window.location.href = "/auth";
-    return;
+    return null;
   }
 }
 
