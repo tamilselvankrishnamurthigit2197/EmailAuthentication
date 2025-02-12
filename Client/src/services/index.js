@@ -50,21 +50,29 @@ export const callUserAuthApi = async () => {
   const token = getToken(); //retrive token from session storage
 
   if (!token) {
-    throw new Error("No Token is found, User not authenticated !");
+    /* throw new Error("No Token is found, User not authenticated !"); */
+    window.location.href = "/auth";
+    return;
   }
-  
-  const response = await axios.post(
-    `${import.meta.env.VITE_API_URL}/api/user/auth`,
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${token}`, //attach token to request header
-        "Cache-control": "no-store, no-cache, must-revalidate, proxy-revalidate",
-      },
-    }
-  );
-  console.log(response, "response from auth");
-  return response?.data;
+
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_URL}/api/user/auth`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, //attach token to request header
+          "Cache-control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+        },
+      }
+    );
+    console.log(response, "response from auth");
+    return response?.data;
+  } catch (error) {
+    console.error("Auth API error", error);
+    window.location.href = "/auth";
+    return;
+  }
 }
 
 /* logout api */
