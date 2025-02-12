@@ -1,5 +1,5 @@
 import './App.css'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import AuthPage from './pages/auth'
 import CommonLayout from './components/common-layout'
 import TasksPage from './pages/tasks'
@@ -13,6 +13,8 @@ function App() {
         <Route path='list' element={<TasksPage />} />
         <Route path='scrum-board' element={<ScrumBoardPage />} />
       </Route>
+      {/* fallback route */}
+      <Route path='*' element={<Navigate to="/auth" />} />
     </Routes>
   )
 }
