@@ -52,7 +52,7 @@ export const callUserAuthApi = async () => {
   if (!token) {
     throw new Error("No Token is found, User not authenticated !");
   }
-
+  
   const response = await axios.post(
     `${import.meta.env.VITE_API_URL}/api/user/auth`,
     {},
