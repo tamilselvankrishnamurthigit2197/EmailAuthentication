@@ -46,7 +46,8 @@ export const callLoginUserApi = async (formData) => {
 }
 
 /* User Auth api */
-export const callUserAuthApi = async () => {
+export const callUserAuthApi = async (event) => {
+  event.preventDefault();
   const token = getToken(); //retrive token from session storage
 
   if (!token) {
