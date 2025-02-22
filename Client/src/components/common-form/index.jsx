@@ -13,6 +13,7 @@ function CommonForm({ formControls = [], handleSubmit, form, btnText }) {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(handleSubmit)}>
+        
         {formControls?.length > 0
           ? formControls.map((controlItem) => (
               <FormField

@@ -90,7 +90,6 @@ export const addNewTaskFormControls = [
         id: "priority",
         placeholder: "Enter Priority",
         label: "Priority",
-        componentType: "input",
         componentType: "select",
         options:[
             {
